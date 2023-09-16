@@ -1,3 +1,5 @@
+let passivesData = [];
+
 // Fetch the data from the external JSON file when the page loads
 window.onload = function() {
     fetch('passives.json')
@@ -8,7 +10,8 @@ window.onload = function() {
             return response.json();
         })
         .then(data => {
-            populateDropdowns(data.passives);
+            passivesData = data.passives;
+            populateDropdowns(passivesData);
         })
         .catch(error => {
             console.error("There was a problem fetching the JSON data:", error);
@@ -16,13 +19,39 @@ window.onload = function() {
 }
 
 function populateDropdowns(passives) {
-    passives.forEach(passive => {
-        const option = document.createElement("option");
-        option.value = passive;
-        option.textContent = passive;
-        document.getElementById("dropdown1").appendChild(option.cloneNode(true));
-        document.getElementById("dropdown2").appendChild(option.cloneNode(true));
-        document.getElementById("dropdown3").appendChild(option.cloneNode(true));
-        document.getElementById("dropdown4").appendChild(option.cloneNode(true));
+    ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4'].forEach(dropdownId => {
+        const dropdown = document.getElementById(dropdownId);
+        dropdown.innerHTML = ''; // Clear the dropdown
+
+        // Add default option
+        const defaultOption = document.createElement("option");
+        defaultOption.value = '';
+        defaultOption.textContent = 'Select a value';
+        dropdown.appendChild(defaultOption);
+
+        passives.forEach(passive => {
+            const option = document.createElement("option");
+            option.value = passive;
+            option.textContent = passive;
+            dropdown.appendChild(option);
+        });
+    });
+}
+
+function updateDropdowns(changedDropdown) {
+    const selectedValues = [
+        document.getElementById('dropdown1').value,
+        document.getElementById('dropdown2').value,
+        document.getElementById('dropdown3').value,
+        document.getElementById('dropdown4').value
+    ];
+
+    const availablePassives = passivesData.filter(passive => !selectedValues.includes(passive));
+
+    populateDropdowns(availablePassives);
+
+    // Restore the selected values
+    ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4'].forEach((dropdownId, index) => {
+        document.getElementById(dropdownId).value = selectedValues[index];
     });
 }
