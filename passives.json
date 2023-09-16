@@ -1,9 +1,12 @@
 {
     "passives": [
-        "test1",
-        "test2",
-        "test3",
-        "test4",
-        "test5"
+        "Gain an additional 2 mana at the beginning of every turn.",
+        "Gain Growth (2) whenever you trigger a status.",
+        "Deal 30% bonus damage to frozen targets.",
+        "Draw one more card per turn.",
+        "Create 1 Smoke Bomb on your first turn.\nDraw 1 Smoke Bomb from your deck every turn.",
+        "You deal 5% more damage and apply 5% more status to enemies per debuff on them",
+        "You can evade statuses while Hidden.",
+        "+50% Critical Damage"
     ]
 }

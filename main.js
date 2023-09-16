@@ -39,19 +39,43 @@ function populateDropdowns(passives) {
 }
 
 function updateDropdowns(changedDropdown) {
-    const selectedValues = [
-        document.getElementById('dropdown1').value,
-        document.getElementById('dropdown2').value,
-        document.getElementById('dropdown3').value,
-        document.getElementById('dropdown4').value
+    const dropdowns = [
+        document.getElementById('dropdown1'),
+        document.getElementById('dropdown2'),
+        document.getElementById('dropdown3'),
+        document.getElementById('dropdown4')
     ];
 
-    const availablePassives = passivesData.filter(passive => !selectedValues.includes(passive));
+    // Get all currently selected values
+    const selectedValues = dropdowns.map(dropdown => dropdown.value);
 
-    populateDropdowns(availablePassives);
+    dropdowns.forEach(dropdown => {
+        const currentValue = dropdown.value; // Store the current dropdown's value
 
-    // Restore the selected values
-    ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4'].forEach((dropdownId, index) => {
-        document.getElementById(dropdownId).value = selectedValues[index];
+        // For each dropdown, we consider its current value as available along with other passives not selected elsewhere
+        const availablePassives = [...passivesData].filter(passive => passive === currentValue || !selectedValues.includes(passive));
+        
+        populateSingleDropdown(dropdown, availablePassives);
     });
 }
+
+function populateSingleDropdown(dropdown, passives) {
+    const currentValue = dropdown.value; // Store the current dropdown's value
+    dropdown.innerHTML = ''; // Clear the dropdown
+
+    // Add default option
+    const defaultOption = document.createElement("option");
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select a value';
+    dropdown.appendChild(defaultOption);
+
+    passives.forEach(passive => {
+        const option = document.createElement("option");
+        option.value = passive;
+        option.textContent = passive;
+        dropdown.appendChild(option);
+    });
+
+    dropdown.value = currentValue; // Restore the selected value
+}
+
