@@ -59,7 +59,11 @@ function populateDropdowns(passives) {
     }
 }
 
-function updateDropdowns(changedDropdown) {
+function updateDropdowns() {
+    var checkbox = document.getElementById("lock_levels");
+    if (checkbox.checked) {
+        return;
+    }
     const dropdowns = [
         document.getElementById('dropdown1'),
         document.getElementById('dropdown2'),
