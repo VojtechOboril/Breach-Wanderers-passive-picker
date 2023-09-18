@@ -39,7 +39,7 @@ function populateDropdowns(passives) {
             });
         });
     } else {
-        passives = [...passives[0], ...passives[1], ...passives[2], ...passives[3]]
+        passives = [...passives[0], ...passives[1], ...passives[2], ...passives[3]];
         ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4'].forEach(dropdownId => {
             const dropdown = document.getElementById(dropdownId);
             dropdown.innerHTML = ''; // Clear the dropdown
