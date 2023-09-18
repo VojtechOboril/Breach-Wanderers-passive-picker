@@ -21,7 +21,7 @@ window.onload = function () {
 function populateDropdowns(passives) {
     var checkbox = document.getElementById("lock_levels");
     if (checkbox.checked) {
-        ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4'].forEach(dropdownId, index => {
+        ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4'].forEach((dropdownId, index) => {
             const dropdown = document.getElementById(dropdownId);
             dropdown.innerHTML = ''; // Clear the dropdown
     
@@ -69,10 +69,8 @@ function updateDropdowns() {
 
     var checkbox = document.getElementById("lock_levels");
     if (checkbox.checked) {
-        dropdowns.forEach(dropdown, index => {
-            const currentValue = dropdown.value; // Store the current dropdown's value
-    
-            // For each dropdown, we consider its current value as available along with other passives not selected elsewhere
+        dropdowns.forEach((dropdown, index) => {
+
             const availablePassives = [...passivesData[index]];
     
             populateSingleDropdown(dropdown, availablePassives, index);
@@ -82,7 +80,7 @@ function updateDropdowns() {
     // Get all currently selected values
     const selectedValues = dropdowns.map(dropdown => dropdown.value);
 
-    dropdowns.forEach(dropdown, index => {
+    dropdowns.forEach((dropdown, index) => {
         const currentValue = dropdown.value; // Store the current dropdown's value
 
         // For each dropdown, we consider its current value as available along with other passives not selected elsewhere
