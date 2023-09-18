@@ -74,17 +74,17 @@ function updateDropdowns() {
     // Get all currently selected values
     const selectedValues = dropdowns.map(dropdown => dropdown.value);
 
-    dropdowns.forEach(dropdown => {
+    dropdowns.forEach(dropdown, index => {
         const currentValue = dropdown.value; // Store the current dropdown's value
 
         // For each dropdown, we consider its current value as available along with other passives not selected elsewhere
         const availablePassives = [...passivesData].filter(passive => passive === currentValue || !selectedValues.includes(passive));
 
-        populateSingleDropdown(dropdown, availablePassives);
+        populateSingleDropdown(dropdown, availablePassives, index);
     });
 }
 
-function populateSingleDropdown(dropdown, passives) {
+function populateSingleDropdown(dropdown, passives, index) {
     const currentValue = dropdown.value; // Store the current dropdown's value
     dropdown.innerHTML = ''; // Clear the dropdown
 
@@ -93,6 +93,13 @@ function populateSingleDropdown(dropdown, passives) {
     defaultOption.value = '';
     defaultOption.textContent = 'Select a value';
     dropdown.appendChild(defaultOption);
+
+    var checkbox = document.getElementById("lock_levels");
+    if (checkbox.checked) {
+        passives = passives[index];
+    } else {
+        passives = [...passives[0], ...passives[1], ...passives[2], ...passives[3]];
+    }
 
     passives.forEach(passive => {
         const option = document.createElement("option");
