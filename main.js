@@ -39,6 +39,7 @@ function populateDropdowns(passives) {
             });
         });
     } else {
+        passives = [...passives[0], ...passives[1], ...passives[2], ...passives[3]]
         ['dropdown1', 'dropdown2', 'dropdown3', 'dropdown4'].forEach(dropdownId => {
             const dropdown = document.getElementById(dropdownId);
             dropdown.innerHTML = ''; // Clear the dropdown
@@ -47,10 +48,7 @@ function populateDropdowns(passives) {
             const defaultOption = document.createElement("option");
             defaultOption.value = '';
             defaultOption.textContent = 'Select a value';
-            dropdown.appendChild(defaultOption);
-
-            passives = [...passives[0], ...passives[1], ...passives[2], ...passives[3]]
-    
+            dropdown.appendChild(defaultOption);    
             passives.forEach(passive => {
                 const option = document.createElement("option");
                 option.value = passive;
